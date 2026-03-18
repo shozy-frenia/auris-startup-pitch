@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURIS — Следующее поколение наушников</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --white: #f4f0e8;
+    --gold: #c8a96e;
+    --gold-light: #e8d0a0;
+    --charcoal: #141414;
+    --mid: #2a2a2a;
+    --text-dim: #888;
+  }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(–black);
+color: var(–white);
+font-family: ‘Manrope’, sans-serif;
+overflow-x: hidden;
+cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+position: fixed;
+width: 8px; height: 8px;
+background: var(–gold);
+border-radius: 50%;
+pointer-events: none;
+z-index: 9999;
+transition: transform 0.15s ease;
+transform: translate(-50%, -50%);
+}
+.cursor-ring {
+position: fixed;
+width: 36px; height: 36px;
+border: 1px solid rgba(200,169,110,0.5);
+border-radius: 50%;
+pointer-events: none;
+z-index: 9998;
+transition: transform 0.4s ease, width 0.3s, height 0.3s;
+transform: translate(-50%, -50%);
+}
+
+/* NAV */
+nav {
+position: fixed; top: 0; left: 0; right: 0;
+z-index: 100;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 24px 60px;
+background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+}
+.nav-logo {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 28px;
+letter-spacing: 6px;
+color: var(–gold);
+}
+.nav-tag {
+font-size: 11px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–text-dim);
+}
+
+/* HERO */
+.hero {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+position: relative;
+overflow: hidden;
+padding: 120px 40px 80px;
+}
+
+.hero-bg {
+position: absolute; inset: 0;
+background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,169,110,0.08) 0%, transparent 70%);
+}
+
+.hero-rings {
+position: absolute;
+top: 50%; left: 50%;
+transform: translate(-50%, -50%);
+pointer-events: none;
+}
+.ring {
+position: absolute;
+border-radius: 50%;
+border: 1px solid rgba(200,169,110,0.07);
+transform: translate(-50%, -50%);
+animation: pulse 8s infinite ease-in-out;
+}
+.ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
+.ring:nth-child(2) { width: 500px; height: 500px; animation-delay: 1.5s; }
+.ring:nth-child(3) { width: 700px; height: 700px; animation-delay: 3s; }
+.ring:nth-child(4) { width: 900px; height: 900px; animation-delay: 4.5s; }
+.ring:nth-child(5) { width: 1100px; height: 1100px; animation-delay: 6s; }
+
+@keyframes pulse {
+0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+50% { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
+}
+
+.hero-eyebrow {
+font-size: 11px;
+letter-spacing: 5px;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 28px;
+opacity: 0;
+animation: fadeUp 1s ease 0.3s forwards;
+}
+
+.hero-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(80px, 14vw, 180px);
+line-height: 0.9;
+letter-spacing: 2px;
+margin-bottom: 24px;
+opacity: 0;
+animation: fadeUp 1s ease 0.5s forwards;
+}
+
+.hero-title span { color: var(–gold); }
+
+.hero-sub {
+font-size: clamp(15px, 2vw, 20px);
+font-weight: 300;
+color: rgba(244,240,232,0.6);
+max-width: 600px;
+line-height: 1.7;
+margin-bottom: 60px;
+opacity: 0;
+animation: fadeUp 1s ease 0.7s forwards;
+}
+
+.hero-cta {
+display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+opacity: 0;
+animation: fadeUp 1s ease 0.9s forwards;
+}
+
+.btn-primary {
+background: var(–gold);
+color: var(–black);
+padding: 16px 40px;
+font-family: ‘Manrope’, sans-serif;
+font-weight: 700;
+font-size: 13px;
+letter-spacing: 2px;
+text-transform: uppercase;
+border: none;
+cursor: none;
+transition: all 0.3s ease;
+}
+.btn-primary:hover { background: var(–gold-light); transform: translateY(-2px); }
+
+.btn-outline {
+background: transparent;
+color: var(–white);
+padding: 16px 40px;
+font-family: ‘Manrope’, sans-serif;
+font-weight: 600;
+font-size: 13px;
+letter-spacing: 2px;
+text-transform: uppercase;
+border: 1px solid rgba(244,240,232,0.25);
+cursor: none;
+transition: all 0.3s ease;
+}
+.btn-outline:hover { border-color: var(–gold); color: var(–gold); transform: translateY(-2px); }
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(30px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* STATS BAR */
+.stats-bar {
+background: var(–charcoal);
+border-top: 1px solid rgba(200,169,110,0.15);
+border-bottom: 1px solid rgba(200,169,110,0.15);
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+text-align: center;
+}
+.stat-item {
+padding: 36px 20px;
+border-right: 1px solid rgba(200,169,110,0.1);
+transition: background 0.3s;
+}
+.stat-item:last-child { border-right: none; }
+.stat-item:hover { background: rgba(200,169,110,0.05); }
+.stat-num {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 48px;
+color: var(–gold);
+display: block;
+line-height: 1;
+margin-bottom: 8px;
+}
+.stat-label {
+font-size: 11px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–text-dim);
+}
+
+/* SECTIONS */
+section {
+padding: 120px 60px;
+max-width: 1400px;
+margin: 0 auto;
+}
+
+.section-eyebrow {
+font-size: 10px;
+letter-spacing: 5px;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 16px;
+}
+.section-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(44px, 6vw, 80px);
+line-height: 1;
+margin-bottom: 20px;
+}
+.section-title span { color: var(–gold); }
+
+/* PROBLEM */
+.problem-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 80px;
+align-items: center;
+margin-top: 60px;
+}
+.problem-text p {
+font-size: 18px;
+line-height: 1.8;
+color: rgba(244,240,232,0.75);
+margin-bottom: 20px;
+font-weight: 300;
+}
+.problem-visual {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+.pain-card {
+background: var(–charcoal);
+border: 1px solid rgba(244,240,232,0.07);
+padding: 28px;
+transition: all 0.3s ease;
+}
+.pain-card:hover {
+border-color: var(–gold);
+transform: translateY(-4px);
+background: rgba(200,169,110,0.05);
+}
+.pain-icon { font-size: 28px; margin-bottom: 12px; }
+.pain-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; color: var(–white); }
+.pain-desc { font-size: 13px; color: var(–text-dim); line-height: 1.6; }
+
+/* FEATURES */
+.features-section { background: var(–charcoal); max-width: 100%; }
+.features-inner { max-width: 1400px; margin: 0 auto; padding: 120px 60px; }
+
+.features-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 2px;
+margin-top: 70px;
+background: rgba(200,169,110,0.1);
+}
+.feature-card {
+background: var(–charcoal);
+padding: 50px 40px;
+transition: all 0.4s ease;
+position: relative;
+overflow: hidden;
+}
+.feature-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0;
+width: 3px; height: 0;
+background: var(–gold);
+transition: height 0.4s ease;
+}
+.feature-card:hover::before { height: 100%; }
+.feature-card:hover { background: rgba(200,169,110,0.04); }
+
+.feature-num {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 64px;
+color: rgba(200,169,110,0.12);
+line-height: 1;
+margin-bottom: 16px;
+transition: color 0.4s;
+}
+.feature-card:hover .feature-num { color: rgba(200,169,110,0.3); }
+.feature-name {
+font-weight: 800;
+font-size: 18px;
+margin-bottom: 14px;
+color: var(–white);
+}
+.feature-desc {
+font-size: 14px;
+color: var(–text-dim);
+line-height: 1.7;
+}
+.feature-tag {
+display: inline-block;
+margin-top: 20px;
+padding: 5px 12px;
+font-size: 10px;
+letter-spacing: 2px;
+text-transform: uppercase;
+border: 1px solid rgba(200,169,110,0.3);
+color: var(–gold);
+}
+
+/* TECH SPECS */
+.tech-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 60px;
+margin-top: 70px;
+align-items: start;
+}
+.spec-group { margin-bottom: 40px; }
+.spec-group-title {
+font-size: 10px;
+letter-spacing: 4px;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 20px;
+padding-bottom: 12px;
+border-bottom: 1px solid rgba(200,169,110,0.2);
+}
+.spec-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 14px 0;
+border-bottom: 1px solid rgba(244,240,232,0.05);
+}
+.spec-key { font-size: 13px; color: var(–text-dim); }
+.spec-val { font-size: 13px; font-weight: 600; color: var(–white); text-align: right; }
+
+.roadmap-timeline {
+position: relative;
+padding-left: 40px;
+}
+.roadmap-timeline::before {
+content: ‘’;
+position: absolute;
+left: 0; top: 0; bottom: 0;
+width: 1px;
+background: linear-gradient(to bottom, var(–gold), transparent);
+}
+.roadmap-item {
+position: relative;
+margin-bottom: 40px;
+}
+.roadmap-item::before {
+content: ‘’;
+position: absolute;
+left: -46px; top: 6px;
+width: 12px; height: 12px;
+border-radius: 50%;
+background: var(–gold);
+box-shadow: 0 0 20px rgba(200,169,110,0.5);
+}
+.roadmap-phase {
+font-size: 10px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 6px;
+}
+.roadmap-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+.roadmap-desc { font-size: 13px; color: var(–text-dim); line-height: 1.6; }
+
+/* MARKET */
+.market-section { background: var(–black); max-width: 100%; }
+.market-inner { max-width: 1400px; margin: 0 auto; padding: 120px 60px; }
+
+.market-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 24px;
+margin-top: 70px;
+}
+.market-card {
+border: 1px solid rgba(200,169,110,0.15);
+padding: 44px 36px;
+text-align: center;
+transition: all 0.4s ease;
+position: relative;
+}
+.market-card.highlight {
+border-color: var(–gold);
+background: rgba(200,169,110,0.04);
+}
+.market-card:hover { border-color: var(–gold); transform: translateY(-6px); }
+.market-badge {
+position: absolute;
+top: -12px; left: 50%; transform: translateX(-50%);
+background: var(–gold);
+color: var(–black);
+font-size: 9px;
+font-weight: 800;
+letter-spacing: 2px;
+text-transform: uppercase;
+padding: 4px 14px;
+}
+.market-size {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 58px;
+color: var(–gold);
+line-height: 1;
+margin-bottom: 8px;
+}
+.market-name { font-weight: 700; font-size: 15px; margin-bottom: 12px; }
+.market-desc { font-size: 13px; color: var(–text-dim); line-height: 1.6; }
+
+/* TEAM */
+.team-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 24px;
+margin-top: 70px;
+}
+.team-card {
+background: var(–charcoal);
+padding: 36px 28px;
+transition: all 0.3s ease;
+border: 1px solid transparent;
+}
+.team-card:hover { border-color: rgba(200,169,110,0.3); transform: translateY(-4px); }
+.team-avatar {
+width: 64px; height: 64px;
+border-radius: 50%;
+background: linear-gradient(135deg, var(–gold), rgba(200,169,110,0.3));
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+margin-bottom: 20px;
+}
+.team-name { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
+.team-role { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(–gold); margin-bottom: 12px; }
+.team-bio { font-size: 13px; color: var(–text-dim); line-height: 1.6; }
+
+/* INVESTMENT */
+.invest-section {
+background: var(–charcoal);
+max-width: 100%;
+border-top: 1px solid rgba(200,169,110,0.1);
+border-bottom: 1px solid rgba(200,169,110,0.1);
+}
+.invest-inner { max-width: 1400px; margin: 0 auto; padding: 120px 60px; }
+
+.invest-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 80px;
+margin-top: 70px;
+}
+.invest-ask {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(48px, 6vw, 80px);
+color: var(–gold);
+line-height: 1;
+margin-bottom: 24px;
+}
+.invest-desc {
+font-size: 16px;
+color: rgba(244,240,232,0.7);
+line-height: 1.8;
+font-weight: 300;
+margin-bottom: 40px;
+}
+.invest-breakdown { list-style: none; }
+.invest-row {
+display: flex;
+justify-content: space-between;
+padding: 18px 0;
+border-bottom: 1px solid rgba(244,240,232,0.07);
+}
+.invest-row:last-child { border-bottom: none; }
+.invest-cat { font-size: 14px; font-weight: 600; }
+.invest-pct {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 22px;
+color: var(–gold);
+}
+
+.why-us {
+display: flex;
+flex-direction: column;
+gap: 24px;
+}
+.why-item {
+display: flex;
+gap: 20px;
+align-items: flex-start;
+padding: 24px;
+border: 1px solid rgba(244,240,232,0.07);
+transition: all 0.3s ease;
+}
+.why-item:hover { border-color: var(–gold); background: rgba(200,169,110,0.03); }
+.why-icon { font-size: 28px; flex-shrink: 0; }
+.why-text h4 { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.why-text p { font-size: 13px; color: var(–text-dim); line-height: 1.6; }
+
+/* FOOTER / CTA */
+.final-cta {
+text-align: center;
+padding: 160px 60px;
+position: relative;
+overflow: hidden;
+}
+.final-cta-bg {
+position: absolute; inset: 0;
+background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(200,169,110,0.07) 0%, transparent 70%);
+}
+.final-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(50px, 9vw, 120px);
+line-height: 0.95;
+margin-bottom: 30px;
+}
+.final-sub {
+font-size: 18px;
+color: rgba(244,240,232,0.6);
+max-width: 500px;
+margin: 0 auto 50px;
+font-weight: 300;
+line-height: 1.7;
+}
+
+footer {
+border-top: 1px solid rgba(244,240,232,0.07);
+padding: 40px 60px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: var(–charcoal);
+}
+footer .logo { font-family: ‘Bebas Neue’, sans-serif; font-size: 22px; letter-spacing: 5px; color: var(–gold); }
+footer p { font-size: 12px; color: var(–text-dim); }
+
+/* SCROLL REVEAL */
+.reveal {
+opacity: 0;
+transform: translateY(40px);
+transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+nav { padding: 20px 24px; }
+section { padding: 80px 24px; }
+.features-inner, .market-inner, .invest-inner { padding: 80px 24px; }
+.stats-bar { grid-template-columns: repeat(2, 1fr); }
+.problem-grid, .tech-grid, .invest-grid { grid-template-columns: 1fr; gap: 40px; }
+.features-grid, .market-grid { grid-template-columns: 1fr; }
+.team-grid { grid-template-columns: repeat(2, 1fr); }
+footer { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+
+<nav>
+  <div class="nav-logo">AURIS</div>
+  <div class="nav-tag">Startup Pitch Deck · 2026</div>
+</nav>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-rings">
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div>
+  </div>
+  <div class="hero-eyebrow">Революция в аудио · Следующее поколение</div>
+  <h1 class="hero-title">AU<span>R</span>IS</h1>
+  <p class="hero-sub">Умные наушники, которые слышат мир так же, как слышите его вы — одним касанием, одним движением, одним ухом.</p>
+  <div class="hero-cta">
+    <button class="btn-primary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Узнать больше</button>
+    <button class="btn-outline" onclick="document.getElementById('invest').scrollIntoView({behavior:'smooth'})">Инвестиции</button>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">$89B</span>
+    <span class="stat-label">Объём рынка TWS 2028</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">0.3s</span>
+    <span class="stat-label">Скорость переключения</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">4</span>
+    <span class="stat-label">Патента подано</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">40h</span>
+    <span class="stat-label">Время работы</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+
+<section>
+  <div class="section-eyebrow reveal">01 — Проблема</div>
+  <h2 class="section-title reveal">Мир не <span>замолкает</span>,<br>пока ты в наушниках</h2>
+  <div class="problem-grid">
+    <div class="problem-text reveal">
+      <p>Каждый день миллионы людей сталкиваются с одной и той же ситуацией: коллега подходит поговорить, кассир что-то спрашивает, партнёр зовёт — и нужно полностью снимать наушники, прерывая музыку или разговор.</p>
+      <p>Существующие решения — "прозрачный режим" — слишком техничны, неудобны и не дают контроля. Ни один производитель не решил базовую человеческую потребность: <strong>слышать обе стороны своей жизни одновременно</strong>.</p>
+    </div>
+    <div class="problem-visual reveal">
+      <div class="pain-card">
+        <div class="pain-icon">😤</div>
+        <div class="pain-title">Постоянные прерывания</div>
+        <div class="pain-desc">73% пользователей снимают наушники 8–12 раз в день</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🥵</div>
+        <div class="pain-title">Дискомфорт и пот</div>
+        <div class="pain-desc">Силиконовые амбушюры вызывают раздражение уже через 1–2 часа</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🔇</div>
+        <div class="pain-title">Социальная изоляция</div>
+        <div class="pain-desc">Наушники воспринимаются как сигнал "не беспокоить"</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🔋</div>
+        <div class="pain-title">Короткий заряд</div>
+        <div class="pain-desc">Средний ресурс 5–7 часов не покрывает рабочий день</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+
+<div class="features-section" id="features">
+  <div class="features-inner">
+    <div class="section-eyebrow reveal">02 — Решение</div>
+    <h2 class="section-title reveal">Технологии,<br>которые <span>меняют игру</span></h2>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-num">01</div>
+        <div class="feature-name">HalfMode™ — касание в 0,3 сек</div>
+        <div class="feature-desc">Двойное нажатие на корпус одного наушника мгновенно глушит его, включая естественный пропуск звука. Второй работает в полную силу. Идеально для разговора с партнёром, не прерывая звонок на другом ухе.</div>
+        <span class="feature-tag">Патент подан</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">02</div>
+        <div class="feature-name">DualStream — два аудиоканала</div>
+        <div class="feature-desc">Левый и правый наушники могут воспроизводить разные источники одновременно. Правое ухо — рабочий звонок, левое — уведомление от партнёра. Раздельное управление без приложения.</div>
+        <span class="feature-tag">AI-powered</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">03</div>
+        <div class="feature-name">AeroSkin™ — дышащий материал</div>
+        <div class="feature-desc">Запатентованный медицинский силикон с микроперфорацией и графеновым покрытием. Отводит тепло в 3 раза быстрее обычного силикона. Гипоаллергенный, антибактериальный, сменный за 5 секунд.</div>
+        <span class="feature-tag">Мед. сертификат</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">04</div>
+        <div class="feature-name">SocialAI — умный ассистент</div>
+        <div class="feature-desc">Встроенный микрофон с AI определяет, что к тебе обратились, и автоматически снижает громкость на 50%, открывая "окно общения". После паузы — возвращает звук. Без касания. Без прерывания потока.</div>
+        <span class="feature-tag">На чипе</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">05</div>
+        <div class="feature-name">BondShare — наушники для двоих</div>
+        <div class="feature-desc">Функция "поделиться ухом": передай один наушник партнёру и слушайте один источник вместе, каждый в своём ритме. Без проводов, без Bluetooth-пары — через фирменный протокол с задержкой &lt;10мс.</div>
+        <span class="feature-tag">Уникально на рынке</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">06</div>
+        <div class="feature-name">VoiceShield — шумоподавление</div>
+        <div class="feature-desc">Гибридный ANC 40дБ с режимом "умной фильтрации": убирает фоновый шум, но оставляет голоса живых людей рядом. Ты слышишь музыку и одновременно чуешь, что тебя зовут.</div>
+        <span class="feature-tag">Hybrid ANC</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TECH SPECS + ROADMAP -->
+
+<section>
+  <div class="section-eyebrow reveal">03 — Технологии и Дорожная карта</div>
+  <h2 class="section-title reveal">Спецификации<br>и <span>план роста</span></h2>
+  <div class="tech-grid">
+    <div class="reveal">
+      <div class="spec-group">
+        <div class="spec-group-title">Аудио</div>
+        <div class="spec-row"><span class="spec-key">Динамики</span><span class="spec-val">10мм + BA-драйвер</span></div>
+        <div class="spec-row"><span class="spec-key">Частотный диапазон</span><span class="spec-val">20 Гц — 20 кГц</span></div>
+        <div class="spec-row"><span class="spec-key">Кодеки</span><span class="spec-val">AAC / aptX Adaptive / LDAC</span></div>
+        <div class="spec-row"><span class="spec-key">Задержка</span><span class="spec-val">&lt;40 мс (gaming mode)</span></div>
+        <div class="spec-row"><span class="spec-key">ANC</span><span class="spec-val">до -40 дБ (Hybrid)</span></div>
+      </div>
+      <div class="spec-group">
+        <div class="spec-group-title">Батарея и Чип</div>
+        <div class="spec-row"><span class="spec-key">Наушники</span><span class="spec-val">10 часов (ANC вкл.)</span></div>
+        <div class="spec-row"><span class="spec-key">Кейс</span><span class="spec-val">+30 часов</span></div>
+        <div class="spec-row"><span class="spec-key">Зарядка</span><span class="spec-val">15 мин = 3 часа</span></div>
+        <div class="spec-row"><span class="spec-key">Процессор</span><span class="spec-val">Custom AI DSP 6-ядер</span></div>
+        <div class="spec-row"><span class="spec-key">Bluetooth</span><span class="spec-val">5.4 — 2 устройства одновременно</span></div>
+      </div>
+      <div class="spec-group">
+        <div class="spec-group-title">Материалы</div>
+        <div class="spec-row"><span class="spec-key">Корпус</span><span class="spec-val">Авиационный алюминий + биопластик</span></div>
+        <div class="spec-row"><span class="spec-key">Амбушюры</span><span class="spec-val">AeroSkin™ (3 типоразмера)</span></div>
+        <div class="spec-row"><span class="spec-key">Защита</span><span class="spec-val">IPX5 (пот + дождь)</span></div>
+        <div class="spec-row"><span class="spec-key">Вес</span><span class="spec-val">5.2г (один наушник)</span></div>
+      </div>
+    </div>
+    <div class="roadmap-timeline reveal">
+      <div class="roadmap-item">
+        <div class="roadmap-phase">Q3 2026 — MVP</div>
+        <div class="roadmap-title">Auris One</div>
+        <div class="roadmap-desc">Первый серийный продукт: HalfMode™ + AeroSkin™. Выход на рынок через Kickstarter и прямые продажи. Цель: 5 000 единиц предзаказа.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">Q1 2027 — Масштаб</div>
+        <div class="roadmap-title">Auris Pro + App</div>
+        <div class="roadmap-desc">DualStream и SocialAI. Приложение для iOS/Android. Партнёрства с B2B: корпоративные продажи операторам колл-центров и удалённым сотрудникам.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">Q3 2027 — Экосистема</div>
+        <div class="roadmap-title">Auris Health</div>
+        <div class="roadmap-desc">Мониторинг здоровья: ЧСС, температура, уровень стресса через ухо. Интеграция с Apple Health, Google Fit. Подписочная модель Auris+.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">2028 — Доминирование</div>
+        <div class="roadmap-title">Auris OS</div>
+        <div class="roadmap-desc">Собственная платформа аудио-ИИ. Лицензирование технологий AeroSkin™ и HalfMode™ крупным производителям. Выход в Азию и США.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+
+<div class="market-section">
+  <div class="market-inner">
+    <div class="section-eyebrow reveal">04 — Рынок</div>
+    <h2 class="section-title reveal">Огромный рынок,<br><span>слабая конкуренция</span></h2>
+    <div class="market-grid">
+      <div class="market-card reveal">
+        <div class="market-size">$89B</div>
+        <div class="market-name">TAM — Всего</div>
+        <div class="market-desc">Глобальный рынок TWS наушников к 2028 году. Ежегодный рост 18%.</div>
+      </div>
+      <div class="market-card highlight reveal">
+        <div class="market-badge">Наша цель</div>
+        <div class="market-size">$12B</div>
+        <div class="market-name">SAM — Доступный</div>
+        <div class="market-desc">Premium-сегмент ($150–$350) и профессиональный рынок B2B в Европе и СНГ.</div>
+      </div>
+      <div class="market-card reveal">
+        <div class="market-size">$480M</div>
+        <div class="market-name">SOM — Реалистичный</div>
+        <div class="market-desc">4% SAM за 3 года — достижимо с нашей технологической дифференциацией.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+
+<section>
+  <div class="section-eyebrow reveal">05 — Команда</div>
+  <h2 class="section-title reveal">Люди, которые<br><span>сделают это</span></h2>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-avatar">🎯</div>
+      <div class="team-name">CEO / Founder</div>
+      <div class="team-role">Продукт & Стратегия</div>
+      <div class="team-bio">10 лет в consumer electronics. Бывший Product Lead в ведущем аудио-стартапе. Автор идеи HalfMode™.</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">🔬</div>
+      <div class="team-name">CTO</div>
+      <div class="team-role">Аппаратная инженерия</div>
+      <div class="team-bio">PhD акустика, ex-Samsung Advanced Institute. 7 патентов в области DSP и аудиочипов.</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">🧬</div>
+      <div class="team-name">Head of Materials</div>
+      <div class="team-role">AeroSkin™ R&D</div>
+      <div class="team-bio">Биомедицинский инженер. Разработка медицинских силиконов 8 лет. Патент на графеновые покрытия.</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">📈</div>
+      <div class="team-name">CMO</div>
+      <div class="team-role">Рост & Маркетинг</div>
+      <div class="team-bio">Запускал Beats в СНГ. $50M+ выручки через direct-to-consumer кампании. Сеть 200+ инфлюенсеров.</div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+
+<div class="invest-section" id="invest">
+  <div class="invest-inner">
+    <div class="section-eyebrow reveal">06 — Инвестиции</div>
+    <h2 class="section-title reveal">Мы ищем<br><span>партнёров</span></h2>
+    <div class="invest-grid">
+      <div class="reveal">
+        <div class="invest-ask">$2,5M<br>Seed Round</div>
+        <div class="invest-desc">За 18 месяцев до коммерческого запуска. Доля — 15%. Оценка компании $16,7M pre-money, основанная на 4 патентах, готовом прототипе и LOI от 3 дистрибьюторов.</div>
+        <ul class="invest-breakdown">
+          <div class="invest-row">
+            <span class="invest-cat">🏭 Производство (MVP batch)</span>
+            <span class="invest-pct">40%</span>
+          </div>
+          <div class="invest-row">
+            <span class="invest-cat">🔬 R&D — AeroSkin v2 + AI chip</span>
+            <span class="invest-pct">25%</span>
+          </div>
+          <div class="invest-row">
+            <span class="invest-cat">📣 Маркетинг и запуск</span>
+            <span class="invest-pct">20%</span>
+          </div>
+          <div class="invest-row">
+            <span class="invest-cat">⚖️ Юридика и патенты</span>
+            <span class="invest-pct">10%</span>
+          </div>
+          <div class="invest-row">
+            <span class="invest-cat">🏢 Операционные расходы</span>
+            <span class="invest-pct">5%</span>
+          </div>
+        </ul>
+      </div>
+      <div class="why-us reveal">
+        <div class="why-item">
+          <div class="why-icon">⚡</div>
+          <div class="why-text">
+            <h4>Первый на рынке</h4>
+            <p>Ни один из ТОП-10 производителей не имеет функции HalfMode™. Патентная защита на 3 ключевых рынка.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🔒</div>
+          <div class="why-text">
+            <h4>Технологический ров</h4>
+            <p>AeroSkin™ требует 18–24 месяца для копирования. Наш AI-чип — ещё 12. Конкуренты опоздают.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">💰</div>
+          <div class="why-text">
+            <h4>Несколько источников дохода</h4>
+            <p>Продажа устройств + сменные AeroSkin (recurring) + подписка Auris+ + лицензирование технологий.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🌍</div>
+          <div class="why-text">
+            <h4>Глобальная масштабируемость</h4>
+            <p>Продукт не требует адаптации под рынки. Производство в Малайзии, продажи — весь мир через D2C.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+
+<div class="final-cta">
+  <div class="final-cta-bg"></div>
+  <div class="section-eyebrow reveal" style="text-align:center">Auris · 2026</div>
+  <h2 class="final-title reveal">Следующий<br><span style="color:var(--gold)">Billion-Dollar</span><br>Бренд</h2>
+  <p class="final-sub reveal">Мы не просто делаем наушники. Мы переопределяем то, как люди слышат мир вокруг них.</p>
+  <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap" class="reveal">
+    <button class="btn-primary">Запросить Deck</button>
+    <button class="btn-outline">Связаться с командой</button>
+  </div>
+</div>
+
+<footer>
+  <div class="logo">AURIS</div>
+  <p>© 2026 Auris Technologies · Конфиденциальная информация для инвесторов</p>
+  <p style="color:var(--gold);font-size:12px;letter-spacing:2px">PITCH DECK v1.0</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.1;
+    ringY += (mouseY - ringY) * 0.1;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stat counter animation
+  function animateCounter(el, target, suffix='') {
+    let current = 0;
+    const increment = target / 60;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = (suffix === 'B' || suffix === 'M') 
+        ? '$' + Math.floor(current) + suffix 
+        : Math.floor(current) + suffix;
+    }, 16);
+  }
+</script>
+
+</body>
+</html>
